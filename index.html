@@ -53,16 +53,36 @@
     }
 
     main {
-      width: min(1000px, calc(100% - 32px));
+      width: min(1100px, calc(100% - 32px));
       margin: 0 auto 50px;
+    }
+
+    .mise-en-page {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .colonne-laterale {
+      background: var(--papier);
+      border: 1px solid var(--bordure);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--ombre);
+    }
+
+    .titre-categories {
+      margin: 0 0 15px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: 700;
     }
 
     .categories {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 9px;
-      margin-bottom: 28px;
+      flex-direction: column;
+      gap: 7px;
     }
 
     button {
@@ -71,24 +91,47 @@
     }
 
     .categorie {
+      width: 100%;
       border: 1px solid var(--bordure);
-      background: var(--papier);
+      background: transparent;
       color: var(--texte);
-      border-radius: 999px;
-      padding: 9px 15px;
+      border-radius: 9px;
+      padding: 8px 11px;
+      text-align: left;
       transition: 0.18s ease;
     }
 
     .categorie:hover {
       border-color: var(--accent);
       color: var(--accent-fonce);
-      transform: translateY(-1px);
+      background: var(--accent-pale);
     }
 
     .categorie.active {
       background: var(--accent);
       border-color: var(--accent);
       color: white;
+    }
+
+    .separateur-lateral {
+      border: 0;
+      border-top: 1px solid var(--bordure);
+      margin: 18px 0;
+    }
+
+    .hasard-lateral {
+      width: 100%;
+      border: 1px solid var(--accent);
+      border-radius: 9px;
+      padding: 10px 12px;
+      background: var(--accent);
+      color: white;
+      transition: 0.18s ease;
+    }
+
+    .hasard-lateral:hover {
+      background: var(--accent-fonce);
+      border-color: var(--accent-fonce);
     }
 
     .carte {
@@ -175,26 +218,24 @@
     }
 
     .recherche {
-      margin-top: 25px;
-      padding: 20px;
-      text-align: center;
-      border-top: 1px solid var(--bordure);
+      margin-top: 0;
+      padding: 0;
+      text-align: left;
     }
 
     .recherche p {
       margin: 0 0 10px;
       color: var(--secondaire);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .recherche-ligne {
       display: flex;
-      justify-content: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .recherche input {
-      width: 100px;
+      width: 90px;
       border: 1px solid var(--bordure);
       border-radius: 9px;
       padding: 10px;
@@ -219,17 +260,36 @@
       padding: 0 20px 35px;
     }
 
+    @media (max-width: 800px) {
+      .mise-en-page {
+        grid-template-columns: 1fr;
+      }
+
+      .colonne-laterale {
+        padding: 18px;
+      }
+
+      .categories {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .categorie {
+        font-size: 0.88rem;
+      }
+
+      .recherche-ligne {
+        max-width: 320px;
+      }
+    }
+
     @media (max-width: 600px) {
       header {
         padding-top: 30px;
       }
 
       .categories {
-        justify-content: flex-start;
-      }
-
-      .categorie {
-        font-size: 0.88rem;
+        grid-template-columns: 1fr;
       }
 
       .carte {
@@ -257,45 +317,55 @@
 
   <main>
 
-    <nav class="categories" id="categories" aria-label="Catégories de sujets"></nav>
+    <div class="mise-en-page">
+      <aside class="colonne-laterale">
+        <h2 class="titre-categories">Catégories</h2>
 
-    <section class="carte" aria-live="polite">
-      <div class="numero" id="numero"></div>
+        <nav class="categories" id="categories" aria-label="Catégories de sujets"></nav>
 
-      <div class="sujet" id="sujet"></div>
+        <hr class="separateur-lateral">
 
-      <div class="infos" id="infos"></div>
-
-      <div class="actions">
-        <button class="action-principale" id="autre">
-          Autre sujet dans cette catégorie
-        </button>
-
-        <button class="action-secondaire" id="hasard">
+        <button class="hasard-lateral" id="hasard">
           Sujet au hasard
         </button>
-      </div>
 
-      <div class="recherche">
-        <p>Tu connais le numéro d'un sujet ?</p>
-        <div class="recherche-ligne">
-          <input
-            type="number"
-            id="numeroRecherche"
-            min="1"
-            max="300"
-            placeholder="1–300"
-            aria-label="Numéro du sujet"
-          >
-          <button id="afficher">Afficher</button>
+        <hr class="separateur-lateral">
+
+        <div class="recherche">
+          <p>Numéro du sujet</p>
+          <div class="recherche-ligne">
+            <input
+              type="number"
+              id="numeroRecherche"
+              min="1"
+              max="300"
+              placeholder="1–300"
+              aria-label="Numéro du sujet"
+            >
+            <button id="afficher">Afficher</button>
+          </div>
         </div>
-      </div>
-    </section>
+      </aside>
+
+      <section class="carte" aria-live="polite">
+        <div class="numero" id="numero"></div>
+
+        <div class="sujet" id="sujet"></div>
+
+        <div class="infos" id="infos"></div>
+
+        <div class="actions">
+          <button class="action-principale" id="autre">
+            Autre sujet dans cette catégorie
+          </button>
+        </div>
+      </section>
+    </div>
 
   </main>
 
   <footer>
-    Lañs · Histoires à inventer
+    © Lañs – Pierre Lemétayer – 2026
   </footer>
 
   <script src="sujets.js"></script>
