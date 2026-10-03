@@ -100,7 +100,7 @@
     }
 
     .recherche-compacte input {
-      width: 88px;
+      width: 150px;
       border: 1px solid var(--bordure);
       border-radius: 9px;
       padding: 10px;
@@ -118,6 +118,27 @@
       color: white;
       font: inherit;
       cursor: pointer;
+    }
+
+    .redaclab {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .redaclab a {
+      display: inline-block;
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      padding: 10px 16px;
+      background: transparent;
+      color: var(--accent-fonce);
+      text-decoration: none;
+      transition: 0.18s ease;
+    }
+
+    .redaclab a:hover {
+      background: var(--accent-pale);
+      border-color: var(--accent);
     }
 
     .carte {
@@ -255,7 +276,7 @@
 
     <div class="commandes">
       <select class="select-categorie" id="categorieSelect" aria-label="Choisir une catégorie">
-        <option value="">Catégories</option>
+        <option value="">Choisir une catégorie</option>
       </select>
 
       <button class="commande" id="hasard">
@@ -268,7 +289,7 @@
           id="numeroRecherche"
           min="1"
           max="300"
-          placeholder="N° du sujet"
+          placeholder="Choisir un numéro"
           aria-label="Numéro du sujet"
         >
         <button id="afficher">Afficher</button>
@@ -288,6 +309,12 @@
         </button>
       </div>
     </section>
+
+    <div class="redaclab">
+      <a href="https://pierreewenlemetayer-dev.github.io/redaclab/" target="_blank" rel="noopener">
+        Écrivez sur Redac Lab
+      </a>
+    </div>
 
   </main>
   <footer>
@@ -447,8 +474,7 @@
 
     creerBoutonsCategories();
 
-    // Premier affichage : un sujet au hasard parmi les 300.
-    afficherSujetAuHasard();
+
   </script>
 
 </body>
