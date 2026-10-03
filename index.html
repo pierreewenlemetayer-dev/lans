@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lañs — Histoires à inventer</title>
+  <meta name="description" content="Lañs — Histoires à inventer : 300 sujets pour écrire et imaginer.">
+  <style>
+    :root {
+      --fond: #f7f3ec;
+      --papier: #fffdf9;
+      --texte: #292722;
+      --secondaire: #756f66;
+      --accent: #c96f42;
+      --accent-fonce: #a9542f;
+      --accent-pale: #f2dfd2;
+      --bordure: #ddd5ca;
+      --ombre: 0 8px 25px rgba(60, 45, 30, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--fond);
+      color: var(--texte);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      text-align: center;
+      padding: 42px 20px 28px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .sous-titre {
+      margin: 12px 0 0;
+      color: var(--secondaire);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+    }
+
+    main {
+      width: min(1000px, calc(100% - 32px));
+      margin: 0 auto 50px;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .categorie {
+      border: 1px solid var(--bordure);
+      background: var(--papier);
+      color: var(--texte);
+      border-radius: 999px;
+      padding: 9px 15px;
+      transition: 0.18s ease;
+    }
+
+    .categorie:hover {
+      border-color: var(--accent);
+      color: var(--accent-fonce);
+      transform: translateY(-1px);
+    }
+
+    .categorie.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .carte {
+      background: var(--papier);
+      border: 1px solid var(--bordure);
+      border-radius: 20px;
+      box-shadow: var(--ombre);
+      padding: clamp(25px, 5vw, 48px);
+      text-align: center;
+    }
+
+    .numero {
+      color: var(--accent-fonce);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .sujet {
+      max-width: 760px;
+      margin: 0 auto;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.5;
+    }
+
+    .infos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 25px;
+    }
+
+    .etiquette {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      background: var(--accent-pale);
+      color: var(--accent-fonce);
+    }
+
+    .etiquette.tag {
+      background: #eeeae3;
+      color: #69635b;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .action-principale,
+    .action-secondaire {
+      border-radius: 10px;
+      padding: 11px 17px;
+      border: 1px solid var(--accent);
+      transition: 0.18s ease;
+    }
+
+    .action-principale {
+      background: var(--accent);
+      color: white;
+    }
+
+    .action-principale:hover {
+      background: var(--accent-fonce);
+      border-color: var(--accent-fonce);
+    }
+
+    .action-secondaire {
+      background: transparent;
+      color: var(--accent-fonce);
+    }
+
+    .action-secondaire:hover {
+      background: var(--accent-pale);
+    }
+
+    .recherche {
+      margin-top: 25px;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--bordure);
+    }
+
+    .recherche p {
+      margin: 0 0 10px;
+      color: var(--secondaire);
+      font-size: 0.9rem;
+    }
+
+    .recherche-ligne {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .recherche input {
+      width: 100px;
+      border: 1px solid var(--bordure);
+      border-radius: 9px;
+      padding: 10px;
+      background: white;
+      color: var(--texte);
+      font: inherit;
+      text-align: center;
+    }
+
+    .recherche button {
+      border: 1px solid var(--bordure);
+      border-radius: 9px;
+      padding: 10px 15px;
+      background: var(--texte);
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--secondaire);
+      font-size: 0.8rem;
+      padding: 0 20px 35px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding-top: 30px;
+      }
+
+      .categories {
+        justify-content: flex-start;
+      }
+
+      .categorie {
+        font-size: 0.88rem;
+      }
+
+      .carte {
+        border-radius: 15px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .action-principale,
+      .action-secondaire {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Lañs</h1>
+    <p class="sous-titre">Histoires à inventer</p>
+  </header>
+
+  <main>
+
+    <nav class="categories" id="categories" aria-label="Catégories de sujets"></nav>
+
+    <section class="carte" aria-live="polite">
+      <div class="numero" id="numero"></div>
+
+      <div class="sujet" id="sujet"></div>
+
+      <div class="infos" id="infos"></div>
+
+      <div class="actions">
+        <button class="action-principale" id="autre">
+          Autre sujet dans cette catégorie
+        </button>
+
+        <button class="action-secondaire" id="hasard">
+          Sujet au hasard
+        </button>
+      </div>
+
+      <div class="recherche">
+        <p>Tu connais le numéro d'un sujet ?</p>
+        <div class="recherche-ligne">
+          <input
+            type="number"
+            id="numeroRecherche"
+            min="1"
+            max="300"
+            placeholder="1–300"
+            aria-label="Numéro du sujet"
+          >
+          <button id="afficher">Afficher</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Lañs · Histoires à inventer
+  </footer>
+
+  <script src="sujets.js"></script>
+
+  <script>
+    const categories = [
+      "Aventure & exploration",
+      "Mystère & enquête",
+      "Fantastique & magie",
+      "Technologie & science-fiction",
+      "Histoire & mondes anciens",
+      "Nature & survie",
+      "Relations & émotions",
+      "Vie quotidienne & société",
+      "Justice & conflits",
+      "Arts, culture & imagination"
+    ];
+
+    let categorieActive = null;
+    let sujetActuel = null;
+
+    const categoriesElement = document.getElementById("categories");
+    const numeroElement = document.getElementById("numero");
+    const sujetElement = document.getElementById("sujet");
+    const infosElement = document.getElementById("infos");
+
+    function creerBoutonsCategories() {
+      categories.forEach(categorie => {
+        const bouton = document.createElement("button");
+
+        bouton.className = "categorie";
+        bouton.textContent = categorie;
+
+        bouton.addEventListener("click", () => {
+          categorieActive = categorie;
+          afficherSujetDansCategorie(categorie);
+          mettreAJourBoutons();
+        });
+
+        categoriesElement.appendChild(bouton);
+      });
+    }
+
+    function mettreAJourBoutons() {
+      document.querySelectorAll(".categorie").forEach(bouton => {
+        bouton.classList.toggle(
+          "active",
+          bouton.textContent === categorieActive
+        );
+      });
+
+      const boutonAutre = document.getElementById("autre");
+
+      if (categorieActive) {
+        boutonAutre.textContent =
+          "Autre sujet dans cette catégorie";
+      } else {
+        boutonAutre.textContent =
+          "Autre sujet";
+      }
+    }
+
+    function sujetsDeCategorie(categorie) {
+      return sujets.filter(sujet =>
+        Array.isArray(sujet.categories) &&
+        sujet.categories.includes(categorie)
+      );
+    }
+
+    function choisirSujet(liste) {
+      if (!liste.length) return null;
+
+      if (liste.length === 1 || !sujetActuel) {
+        return liste[Math.floor(Math.random() * liste.length)];
+      }
+
+      let choix;
+
+      do {
+        choix = liste[Math.floor(Math.random() * liste.length)];
+      } while (choix.id === sujetActuel.id);
+
+      return choix;
+    }
+
+    function afficherSujet(sujet) {
+      if (!sujet) return;
+
+      sujetActuel = sujet;
+
+      numeroElement.textContent = "Sujet n° " + sujet.id;
+      sujetElement.textContent = sujet.texte;
+
+      infosElement.innerHTML = "";
+
+      if (Array.isArray(sujet.categories)) {
+        sujet.categories.forEach(categorie => {
+          const etiquette = document.createElement("span");
+          etiquette.className = "etiquette";
+          etiquette.textContent = categorie;
+          infosElement.appendChild(etiquette);
+        });
+      }
+
+      if (Array.isArray(sujet.tags)) {
+        sujet.tags.forEach(tag => {
+          const etiquette = document.createElement("span");
+          etiquette.className = "etiquette tag";
+          etiquette.textContent = tag;
+          infosElement.appendChild(etiquette);
+        });
+      }
+    }
+
+    function afficherSujetDansCategorie(categorie) {
+      const liste = sujetsDeCategorie(categorie);
+      const sujet = choisirSujet(liste);
+      afficherSujet(sujet);
+    }
+
+    function afficherSujetAuHasard() {
+      const sujet = choisirSujet(sujets);
+      afficherSujet(sujet);
+    }
+
+    function afficherSujetParNumero() {
+      const champ = document.getElementById("numeroRecherche");
+      const numero = Number(champ.value);
+
+      if (!Number.isInteger(numero) || numero < 1 || numero > 300) {
+        champ.focus();
+        return;
+      }
+
+      const sujet = sujets.find(s => Number(s.id) === numero);
+
+      if (sujet) {
+        afficherSujet(sujet);
+      }
+    }
+
+    document.getElementById("autre").addEventListener("click", () => {
+      if (categorieActive) {
+        afficherSujetDansCategorie(categorieActive);
+      } else {
+        afficherSujetAuHasard();
+      }
+    });
+
+    document.getElementById("hasard").addEventListener("click", () => {
+      categorieActive = null;
+      mettreAJourBoutons();
+      afficherSujetAuHasard();
+    });
+
+    document.getElementById("afficher").addEventListener("click", () => {
+      afficherSujetParNumero();
+    });
+
+    document.getElementById("numeroRecherche").addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        afficherSujetParNumero();
+      }
+    });
+
+    creerBoutonsCategories();
+
+    // Premier affichage : un sujet au hasard parmi les 300.
+    afficherSujetAuHasard();
+  </script>
+
+</body>
+</html>
