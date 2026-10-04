@@ -303,7 +303,7 @@
 
       <div class="infos" id="infos"></div>
 
-      <div class="actions">
+      <div class="actions" id="actionsSujet" style="display: none;">
         <button class="action-principale" id="autre">
           Autre sujet dans cette catégorie
         </button>
@@ -396,6 +396,7 @@
       if (!sujet) return;
 
       sujetActuel = sujet;
+      document.getElementById("actionsSujet").style.display = "flex";
 
       numeroElement.textContent = "Sujet n° " + sujet.id;
       sujetElement.textContent = sujet.texte;
